@@ -1,5 +1,5 @@
-import { suitSymbol } from "./game";
-import { Card, Rank } from "./types";
+import { suitSymbol } from "../../shared/game";
+import { Card, Rank } from "../../shared/types";
 
 const NewCard: React.FC<{
   c: Card;

@@ -1,26 +1,4 @@
-import { Card, GameState, Rank, Suit } from "./types";
-
-export const RANKS: Exclude<Rank, "JOKER">[] = [
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "J",
-  "Q",
-  "K",
-  "A",
-];
-const SUITS: Exclude<Suit, "joker">[] = [
-  "hearts",
-  "diamonds",
-  "clubs",
-  "spades",
-];
+import { Card, GameState, Rank, Suit, RANKS, SUITS } from "./types";
 
 export const rankValue = (r: Exclude<Rank, "JOKER">) => RANKS.indexOf(r);
 
@@ -132,6 +110,7 @@ export const applyPlay = (
   const cur = gs.players[gs.turn];
   const ids = new Set(selected.map((c) => c.id));
   cur.hand = cur.hand.filter((c) => !ids.has(c.id));
+  console.log(cur.hand);
   gs.pile.push(...selected);
 
   // Update compareRank
@@ -157,31 +136,27 @@ export const applyPlay = (
   // Specials based on pile top block
   const top = contiguousTop(gs.pile);
   if (top.count >= 4) {
-    gs.messages.unshift(`Four-of-a-kind (${top.rank}) — everyone drinks!`);
+    gs.messages.unshift(`Four-of-a-kind (${top.rank}) - everyone drinks!`);
     everyoneDrinks(gs, 1);
   }
   if (top.rank === "K" && top.count >= 2) {
-    gs.messages.unshift(`KK — ${cur.name} drinks and gives 1 sip.`);
     cur.drank += 1;
     giveSip();
   }
   if (top.rank === "J" && top.count >= 3) {
-    gs.messages.unshift(`Trippelknull (3+ Jacks) — everyone drinks!`);
+    gs.messages.unshift(`Trippelknull (3+ Jacks) - everyone drinks!`);
     everyoneDrinks(gs, 1);
   }
   if (top.rank === "6" && top.count >= 4) {
     gs.messages.unshift(
-      `Quadrupellsex (4+ sixes) — WATERFALL! ${cur.name} starts.`
+      `Quadrupellsex (4+ sixes) - WATERFALL! ${cur.name} starts.`
     );
   }
   if (top.rank === "7" && top.count >= 3) {
-    gs.messages.unshift(
-      `Three or more 7s — Spin the bottle (choose a target to drink 1).`
-    );
     spinBottle();
   }
   if (top.rank === "Q" && top.count >= 2) {
-    gs.messages.unshift(`Two or more Queens — Sax section drinks!`);
+    gs.messages.unshift(`Two or more Queens - Sax section drinks!`);
   }
 };
 

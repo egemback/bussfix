@@ -24,42 +24,6 @@ Denna digitala version för vidare arvet, nu omdöpt till _Bussfix_ för PQ, Bal
 
 ---
 
-## Features
-
-- Play **locally** (pass-and-play) or **online** (rooms with Socket.IO).
-- Full rules in Swedish and English, including all special combinations (69, KK, triple jacks, quadruple sixes, etc.).
-- Configurable number of jokers (2–5) before each game starts.
-- Modern UI built in React + TypeScript (easily portable to Angular if desired).
-- Shared rule engine (`shared/`) used by both client and server.
-
----
-
-## Installation
-
-### Client (local play)
-
-```bash
-cd ./client
-npm install
-npm run dev
-```
-
-Open the printed address (often [http://localhost:5173](http://localhost:5173)).
-
-### Server (for online rooms)
-
-```bash
-cd ./server
-npm install
-npm start
-```
-
-Server will start at [http://localhost:5174](http://localhost:5174).
-
-Start the client and select **Online** in the lobby. Enter the server URL, a room ID, and your player name.
-
----
-
 ## Rules
 
 ### English
@@ -99,6 +63,60 @@ Start the client and select **Online** in the lobby. Enter the server URL, a roo
 - **Två eller fler damer** → saxsektionen dricker.
 - Flera regler kan gälla samtidigt (t.ex. fyra kungar = KK-regeln + fyra i rad).
 - Jokrar är wildcards – spelaren väljer värde när de spelas.
+
+---
+
+## Features
+
+- Play **locally** (pass-and-play) or **online** (rooms with Socket.IO).
+- Full rules in Swedish and English, including all special combinations (69, KK, triple jacks, quadruple sixes, etc.).
+- Configurable number of jokers (2–5) before each game starts.
+- Modern UI built in React + TypeScript (easily portable to Angular if desired).
+- Shared rule engine (`shared/`) used by both client and server.
+
+---
+
+## Getting Started
+
+### 1. Install dependencies
+
+```bash
+cd server
+npm install
+cd ../client
+npm install
+```
+
+### 2. Build the server (TypeScript)
+
+```bash
+cd ..
+npx tsc
+```
+
+### 3. Run the server
+
+```bash
+cd server
+npm start
+```
+
+### 4. Run the client (Vite)
+
+```bash
+cd ../client
+npm run dev
+```
+
+Open the printed address (often [http://localhost:5173](http://localhost:5173)).
+
+---
+
+## Troubleshooting
+
+- If you get module not found errors, make sure you are running the compiled server from `dist/server.js`.
+- If you get TypeScript errors, check your `tsconfig.json` and ensure all imports use the `.js` extension for shared modules.
+- If you change shared code, re-run `npx tsc` before restarting the server.
 
 ---
 

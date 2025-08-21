@@ -9,12 +9,15 @@ yarn.lock
 pnpm-lock.yaml
 
 # Build output
-dist/
-build/
-.cache/
-.temp/
+/dist/
+/build/
+/.cache/
+/.temp/
 out/
-coverage/
+/coverage/
+/client/dist/
+/client/.vite/
+/server/dist/
 
 # Local environment files
 .env
@@ -38,10 +41,10 @@ Thumbs.db
 *.iml
 
 # Server runtime files
-*.pid
-*.seed
-*.pid.lock
+
+# TypeScript
+*.tsbuildinfo
 
 # Misc
-*.tgz
-*.zip
+*.bak
+*.tmp

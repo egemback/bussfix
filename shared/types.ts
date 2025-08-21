@@ -1,52 +1,65 @@
-// shared/types.ts
-export type Suit = 'hearts' | 'diamonds' | 'clubs' | 'spades' | 'joker';
+// Canonical rank and suit orderings
+export const RANKS: Exclude<Rank, "JOKER">[] = [
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "J",
+  "Q",
+  "K",
+  "A",
+];
+export const SUITS: Exclude<Suit, "joker">[] = [
+  "hearts",
+  "diamonds",
+  "clubs",
+  "spades",
+];
+export type Suit = "hearts" | "diamonds" | "clubs" | "spades" | "joker";
 export type Rank =
-  | 'A' | 'K' | 'Q' | 'J' | '10' | '9' | '8' | '7' | '6' | '5' | '4' | '3' | '2' | 'JOKER';
+  | "A"
+  | "K"
+  | "Q"
+  | "J"
+  | "10"
+  | "9"
+  | "8"
+  | "7"
+  | "6"
+  | "5"
+  | "4"
+  | "3"
+  | "2"
+  | "JOKER";
 
 export interface Card {
-  id: string;      // unique id
+  id: number;
   suit: Suit;
   rank: Rank;
-  // If joker: what it currently represents (rank only, suit-agnostic)
-  asRank?: Exclude<Rank, 'JOKER'>;
+  asRank?: Exclude<Rank, "JOKER">;
 }
 
-export type PlayerID = string;
-
-export interface PlayerState {
-  id: PlayerID;
+export interface Player {
+  id: string;
   name: string;
   hand: Card[];
-  drank: number; // number of sips taken (for UI/stats only)
-  connected?: boolean;
-}
-
-export interface Move {
-  playerId: PlayerID;
-  cards: Card[]; // the cards being played (can include jokers with chosen asRank)
-}
-
-export interface PileEntry {
-  cards: Card[]; // set played this turn (could be 1..4+)
-  by: PlayerID;
-}
-
-export interface GameOptions {
-  numJokers: number; // 2..5
-  maxPlayers: number; // 2..6
+  drank: number;
+  out: boolean;
 }
 
 export interface GameState {
-  id: string;
-  players: PlayerState[];
-  turn: PlayerID; // whose turn
+  stage: "lobby" | "playing" | "ended";
+  jokers: number;
+  players: Player[];
+  turn: number; // index in players array
   deck: Card[];
-  discard: Card[];
-  pile: PileEntry[]; // chronological
-  topRankForComparison: Rank | null; // rank threshold to beat; null means any
-  started: boolean;
-  finished: boolean;
-  winner?: PlayerID;
-  options: GameOptions;
-  messages: string[]; // event log
+  pile: Card[];
+  compareRank: Exclude<Rank, "JOKER"> | null;
+  messages: string[];
+  winners: string[];
 }

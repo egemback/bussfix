@@ -1,4 +1,4 @@
-import { GameState } from "./types";
+import { GameState } from "../../shared/types";
 
 const Ended: React.FC<{ gs: GameState; setGs: (gs: GameState) => void }> = ({
   gs,
